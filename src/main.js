@@ -7,17 +7,9 @@ import "./style.css";
 
 // statiska sidor
 // måste referera till den specifika .html-filen pga "?raw"-suffixet
-import headerHTML from "./views/static/header/header.html?raw";
+import header from "./views/header/header";
 import home from "./views/home/home";
-import contactHTML from "./views/static/contact/contact.html?raw";
 import footerHTML from "./views/static/footer/footer.html?raw";
-import "./views/static/footer/footer.css";
-
-// dynamiska sidor
-// behöver bara referera till mappen om filen heter index.js.
-// filer med det namnet laddas automatiskt
-
-// lägg tillbaka när vi har en funktion i /about
 import about from "./views/about";
 import countdown from "./views/countdown/countdown";
 
@@ -33,8 +25,6 @@ const getCurrentPage = () => {
     // lägg tillbaka när vi har en funktion i /about
     case "/about":
       return about();
-    case "/contact":
-      return contactHTML;
     case "/countdown":
       return countdown();
     default:
@@ -51,13 +41,13 @@ const renderApp = () => {
 
   if (typeof currentPage === "string") {
     app.innerHTML = `
-      ${headerHTML}
+      ${header()}
       ${currentPage}
       ${footerHTML}
     `;
   } else {
     app.innerHTML = `
-        ${headerHTML}
+        ${header()}
         ${footerHTML}
         `;
     // footer är en js-fil som returnerar en template string med html-element.

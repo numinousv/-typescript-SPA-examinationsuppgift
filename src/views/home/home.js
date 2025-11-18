@@ -1,4 +1,4 @@
-// import './home.css'
+
 import {
     cards,
     openedCardsNumbers,
