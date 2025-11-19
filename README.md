@@ -1,247 +1,64 @@
-# 🤖 JavaScript i praktiken - Simple SPA (Single page application)
+# 🤖 JavaScript & TypeScript i praktiken - (E1) Modulär TypeScript-applikation
 
-I denna uppgift kommer ni att bygga en modulär webbapplikation bundlad med [Vite](https://vite.dev/). En s.k. "single page application". Den kommer innehålla flera olika sidor, vyer och komponenter, men så vitt webbläsaren vet kommer allt renderas på en och samma webbsida.
+Uppgiften går ut på att bygga en webbapplikation baserad på ett flertal mindre moduler. Det vill säga att den består av många små "byggstenar" som är uppdelade i sina egna filer och mappar men tillsammans bildar en och samma applikation.
 
-**Det är starkt rekommenderat att göra uppgiften i grupp** där ni kan ta hjälp av varandras idéer och kunskaper.
+## 📦 Leverabler
 
-## 👨‍💻 Förberedelser
+Applikationen ska redovisas fullt fungerande i webbläsaren tillsammans med sin källkod.
 
-1 - Skapa själva projektet med Vite. Du kan följa [guiden på vite.dev](https://vite.dev/guide/#scaffolding-your-first-vite-project) eller helt enkelt skriva `npm create vite@latest appens-namn -- --template vanilla` i terminalen
+## 👨‍⚖️ Krav
 
-- Ändra `appens-namn`till det du vill att din mapp och ditt projekt ska heta
-- `--template vanilla` innebär att vi bara kommer jobba med JavaScript utan några ramverk. S.k. "vanilla JavaScript".
+### Projektet ska
 
-2 - Installera dependencies med `npm i` och kör `npm run dev` för att spinna upp en lokal devmiljö. Ofta får man frågan om man vill att detta ska göras automatiskt under installationsprocessen med Vite.
+- **använda en bundler**
+  - Förslagsvis en bundler ni har jobbat med tidigare.
+- **vara skrivet i TypeScript**
+  - Utnyttja alla verktyg som finns i din IDE för att hantera typing errors och varningar. Undvik överdrivet bruk av casting.
+- **ha en städad och lättnavigerad mapp- och filstruktur**
+  - Jobba utifrån perspektivet att en utomstående person enkelt ska kunna förstå och jobba vidare med projektet i framtiden.
+- **bestå av ett flertal komponenter och views**
+  - Mer detaljerad information om detta finns nedan.
+- **utnyttja state och omrendering vid något tillfälle**
+  - Det ska finnas state-variabler, antingen direkt i tillhörande moduler eller i en globalt tillgänglig store. När en state-variabels värde uppdateras ska sidan/modulen renderas om för att demonstrera det uppdaterade värdet. Utan detta förblir sidan statisk.
+- **innehålla någon form av interaktivitet**
+  - Blanda statiska och dynamiska filer. Experimentera med båda koncepten och injecera JavaScript-logik där det behövs. Det är inget fel i att bygga en app helt utan statiska sidor om det visar sig vara bäst. Uppgiftens huvudfokus är JavaScript. Rå HTML är ni redan välbekanta med.
+- **hämta data från ett API**
+  - Förslag på public APIs finns överallt på nätet, i [js--fetch-intro](https://github.com/chas-academy/js--fetch-intro) eller längst ned i [Frontendresurser](https://www.notion.so/chasacademy/Frontend-250d1037d091808e8f5be682f4afbefb).
+- **kunna komplieras till JavaScript och byggas**
+  - Appen ska i praktiken kunna deployas och fungera i en live-miljö. Deployment kommer inte att vara en del av uppgiften, men TypeScript och bundlern ska kunna bygga en `dist`-mapp med alla relevanta filer.
 
-- Kika på koden som redan finns skapad i `index.html` och `main.js` för att få en uppfattning om var allting renderas i slutändan. `main.js` borde hämta in alla dina moduler och rendera dem inuti `<div class="app" id="app"></div>`.
-- Om ni vill använda Live Share så måste den som servar projektet exponera hela sin IP-adress med `npm run dev -- --host` istället för bara `npm run dev`. Använd URL:en som innehåller hela IP-adressen istället för "`localhost`. Detta funkar bara om ni är anslutna till samma nätverk.
+### Övriga krav
 
-3 - Skapa en mappstruktur inuti `/src` där statiska views, dynamiska views och components ligger separerade. Exempelvis:
+- **Alla gruppmedlemmar ska ha pushat commits**
+  - Fördela ansvaret för versionshantering så jämnt som möjligt. Byt person som utför git-kommandon vid varje arbetstillfälle. Det är starkt rekommenderat att jobba med branches, pull requests och code reviews för att få övning i det. Läs mer om riktlinjerna kring grupparbete i Canvas vid oklarheter.
+- **En del av applikationen (Förslagsvis en view, page eller ett flertal components) ska byggas eller refaktoreras av AI**
+  - Tillvägagångssättet och era reflektioner kring detta ska redovisas tillsammans med applikationen.
 
-```bash
-src/
-┣ assets/
-┣ components/
-┣ views/
-┣   about/
-┣       index.js
-┣       style.css
-┣   static/
-┣       footer/
-┣           index.html
-┣           style.css
-```
+## 🦮 Riktlinjer
 
-### Views & components
+Ett tips är att hålla projektet relativt småskaligt och sedan bygga vidare i mån av tid. Ni har fria händer när det kommer till _vad_ som ska byggas, så länge det följer riktlinjerna nedan:
 
-De större delarna av en app kallas för "views". Det kan röra sig om header, footer, sidebar eller liknande. Inuti views brukar man ha "pages" och "components". "Pages" är de olika "sidorna" användaren kan gå in på medan "components" är de mindre delarna av appen - Exempelvis knappar, inputs och andra återanvändbara småmoduler. I ett småskaligt projekt är det inte alltid nödvändigt att skilja på "views" och "pages". Välj den lösningen som blir smidigast och lättast att navigera sig igenom.
+- **4-5 views**
+  - En view kan vara en header, footer, ett formulär m.m.
+- **4-5 components**
+  - Components är betydligt mindre, återanvändbara moduler - Knappar, input-fält, ui-element m.m. - och bör gå att injecera med olika properties. Oftast i form av funktioner som tar argument.
+  - Sikta på att göra era komponenter så återanvändbara som möjligt. Försök att undgå att skräddarsy dem med logik för specifika utfall. Detta kan man isåfall göra i en "wrapper" som är en egen fil som omsluter komponenten.
+- **Pages**
+  - Att strukturera ett projekt är alltid i någon mån subjektivt. Det kan hända att pages inte behövs i det här fallet. En page fungerar som en wrapper för både views och components. En page skulle t.ex. kunna vara en "Kontakt"-sida som innehåller både en view i form av ett kontaktformulär tillsammans med diverse olika komponenter. En större modul som delvis består av andra moduler.
 
-- "Static views" är ren HTML utan någon interaktivitet
-  - De importeras till `main.js`med hjälp av "raw"-flaggan i Vite. Exempelvis `import headerHTML from "./views/static/header/index.html?raw";`
-- "Dynamic views" är interaktiva vyer i form av `.js`-filer. Här kan du blanda JavaScript och HTML i en och samma modul.
-- "Components" ska vara "stateless", det vill säga de ska inte innehålla någon logik eller dynamisk data som bara hör till en specifik del av appen. Istället ska den kunna ta emot olika properties och återanvändas för olika ändamål. Exempelvis en knapp som tar emot olika knapptexter och callback-funktoner att använda vid click events.
+### _Det är fullt tillåtet och rekommenderat att återanvända saker från SPA-uppgiften. Ni kan t.o.m. göra en fork, lägga till TypeScript-konfiguration, konvertera alla `.js`-filer till `.ts` och jobba vidare därifrån._
 
-5 - Nu har du allt du behöver för att bygga din första JavaScript-app!
+## 👩‍💻 Att konfigurera TypeScript
 
-6 - Ändra löpande koden i `main.js`för att importera och rendera dina filer. Följ exemplet nedan:
+Det finns i huvudsak två tillvägagångssätt, båda med sina egna för- och nackdelar.
 
-```js
-import "./style.css";
+1. Konfigurera TypeScript i ett redan existerande projekt
 
-// statiska sidor
-// måste referera till den specifika .html-filen pga "?raw"-suffixet
-import headerHTML from "./views/static/header/index.html?raw";
-import homeHTML from "./views/static/home/index.html?raw";
-import contactHTML from "./views/static/contact/index.html?raw";
+   1. Följ de relevanta stegen i guiden i [ts--intro](https://github.com/chas-academy/js--fetch-intro) - Installera dev dependencyn och sätt upp skriptet. Om ni väljer att initiera TypeScript eller skapa en `tsconfig.json`-fil manuellt och klistra in kodstycket från guiden är valfritt - Kodstycket kommer från Vite och ert projekt är sannolikt byggt med Vite.
+   2. Konvertera alla `.js`-filer till `.ts`.
+   3. Lägg till skriptet `"build": "tsc && vite build"` i `package.json`för att kunna bygga en deploybar version av appen.
 
-// dynamiska sidor
-// behöver bara referera till mappen om filen heter index.js.
-// filer med det namnet laddas automatiskt
-import about from "./views/about";
-import footer from "./views/footer";
+2. Skapa ett nytt projekt med en bundler utifrån en TypeScript template
+   - Förslagsvis `npm create vite@latest ersätt-med-appens-namn-utan-mellanrum -- --template vanilla-ts`.
 
-// en funktion för att rendera olika sidor baserat på webbläsarens "path"
-// för att ändra pathen kan du t.ex. skapa en anchor tag med href="/home"
-// "/home" kommer då att läggas till i url:en
-const getCurrentPage = () => {
-  const currentPage = window.location.pathname;
-
-  switch (currentPage) {
-    case "/home":
-      return homeHTML;
-    case "/about":
-      return about();
-    case "/contact":
-      return contactHTML;
-    default:
-      return (window.location.pathname = "/home");
-  }
-};
-
-const app = document.querySelector("#app");
-
-// funktionen som renderar appen. kommer behöva köras om varje gång sidan ska omrenderas
-// detta är grunden i hur man gör statiska html-sidor till interaktiva applikationer
-const renderApp = () => {
-  const currentPage = getCurrentPage();
-
-  if (typeof currentPage === "string") {
-    app.innerHTML = `
-      ${headerHTML}
-      ${currentPage}
-      ${footer()}
-    `;
-  } else {
-    app.innerHTML = `
-        ${headerHTML}
-        ${footer()}
-        `;
-    // footer är en js-fil som returnerar en template string med html-element.
-    // ett mellanting mellan statisk och dynamisk
-
-    // currentPage är i det här fallet ett objekt innehållande HTML-element
-    // något i stil med document.createElement("div")
-    app.insertBefore(currentPage, app.querySelector("footer"));
-  }
-};
-
-// initial render
-renderApp();
-
-//rerender logic
-// en eventListner som lyssnar på ändringar i URL:ens historik
-window.addEventListener("popstate", renderApp);
-```
-
-## 🖼️ Exempel på filer
-
-### Statisk HTML-fil
-
-Helt vanlig HTML-syntax, minus `<head>` och `<body>` då vi jobbar med en SPA och allt sånt redan skapas i `index.html` i projektets rot. Allt du behöver är ett parent element som omsluter allt annat inenhåll:
-
-```html
-<div class="contact">
-  <h2>hello?</h2>
-</div>
-```
-
-### En funktion som returnerar en template string
-
-Här kan du hämta dynamiska värden från andra delar av ditt projekt och inkludera i din i övrigt statiska fil. Något slags mellanting:
-
-```js
-import favicon from "../../../public/favicon.png";
-
-export default function footer() {
-  return `
-    <footer class="footer">
-      <img src="${favicon}" alt="favicon" />
-      <p>&copy; 2025</p>
-    </footer>
-    `;
-}
-```
-
-### Dynamisk fil
-
-Här kan du blanda template strings, HTML-taggar och JavaScript, men måste i slutändan returnera ett DOM-objekt:
-
-```js
-export default function about() {
-  let count = 1;
-
-  const about = document.createElement("div");
-  about.classList.add("about");
-  about.innerHTML = `
-    <h2>how many boats?</h2>
-    <h2 id="boatHeading">⛵️</h2>
-    <div class="buttons">
-      <button id="incrementButton">Add boats</button>
-      <button id="decrementButton">Remove boats</button>
-    </div>
-  `;
-  const boatHeading = about.querySelector("#boatHeading");
-  const incrementButton = about.querySelector("#incrementButton");
-  const decrementButton = about.querySelector("#decrementButton");
-
-  if (count === 0) {
-    decrementButton.disabled = true;
-  }
-
-  const updateBoats = () =>
-    (boatHeading.innerHTML =
-      Array.from({ length: count }, (_) => "⛵️").join("") || "no boats");
-
-  incrementButton.addEventListener("click", () => {
-    count++;
-    updateBoats();
-  });
-  decrementButton.addEventListener("click", () => {
-    if (count !== 0) {
-      count--;
-      updateBoats();
-    }
-  });
-
-  // i slutändan returneras elementet som skapades med document.createElement("div")
-  return about;
-}
-```
-
-## 🎯 Mål
-
-Bygg en liten webbapplikation, den kan handla om precis vad som helst men ett tips är att hålla scopet smått i början. Övningens syfte är att bekanta sig med bundlers och modulärt strukturerade webbapplikationer med hjälp av JavaScript. Alltså en sammanhängande applikation som består av flera mindre, återanvändbara delar.
-
-### Förslag på saker att bygga
-
-- En random value generator (Citat, namn, etc.)
-- Att göra-lista
-- En enkel miniräknare (Börja med addition, få det att fungera, lägg sedan till subtraktion etc.)
-
-## 💡 Tips
-
-- Om du väljer att skapa separata stylesheets för varje html/js-fil kan det vara smart att skapa ytterligare ett stylesheet i den överordnade mappen som importerar alla de individuella filernas stylesheets. Om du till exempel har fyra mappar med varsin CSS-fil inuti mappen "views" så skapar du en `style.csss` direkt i "views" som importerar alla de separata CSS-filerna. Den filen importeras i sin tur in i `style.css` direkt i mappen "src" och därefter in i `main.js`.
-  - Ett alternativ till detta är att skippa CSS-filer helt och använda ett CSS-ramverk som Tailwind. Eftersom uppgiften använder en bundler är det enkelt att instalera ett CSS-ramverk som dependency.
-- Till en början kommer denna uppgift innehålla flera koncept som vi ännu inte gått igenom. Därför kan det vara bra att dela upp den i omgångar vecka för vecka.
-- Läs mer om modulära webbappar med vanilla JavaScript **[här](https://devdecodes.medium.com/building-modular-web-apps-with-vanilla-javascript-no-frameworks-needed-631710bae703)**
-
-## 🎁 Bonusuppgifter
-
-### Skapa ett globalt state
-
-Skapa en klass med state, getters och setters som du sen kan importera i dina olika filer. På så vis kan du hantera ditt state på ett och samma ställe men ha global tillgång till det i din app. Exempel följer nedan
-
-```js
-class Store {
-  constructor() {
-    this.state = {
-      count: 1,
-    };
-    this.renderCallback = null;
-  }
-
-  getCount() {
-    return this.state.count;
-  }
-
-  setCount(newCount) {
-    this.state.count = newCount;
-    this.triggerRender();
-  }
-
-  setRenderCallback(renderApp) {
-    this.renderCallback = renderApp;
-  }
-
-  triggerRender() {
-    if (this.renderCallback) {
-      this.renderCallback();
-    }
-  }
-}
-const store = new Store();
-
-export const getCount = store.getCount.bind(store);
-export const setCount = store.setCount.bind(store);
-export const setRenderCallback = store.setRenderCallback.bind(store);
-```
+### Kör `npx tsc` eller `npm run dev` för att upptäcka återstående ts errors
