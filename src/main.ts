@@ -79,9 +79,13 @@ if (localStorage.getItem("theme") === "dark") {
 themeToggle.addEventListener("click", () => {
   themeToggle.classList.toggle("dark-mode");
 
-  themeToggle.textContent = themeToggle.classList.contains("dark-mode")? "☀️" : "🌙";
+  themeToggle.textContent = themeToggle.classList.contains("dark-mode")
+    ? "☀️"
+    : "🌙";
   document.documentElement.classList.toggle("dark");
 
-  const theme = document.documentElement.classList.contains("dark") ?"dark" : "light";
+  const theme = document.documentElement.classList.contains("dark")
+    ? "dark"
+    : "light";
   localStorage.setItem("theme", theme);
 });
