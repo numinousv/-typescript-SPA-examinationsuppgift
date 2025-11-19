@@ -10,7 +10,7 @@ import "./style.css";
 import header from "./views/header/header";
 import home from "./views/home/home";
 import footerHTML from "./views/static/footer/footer.html?raw";
-import about from "./views/about";
+import about from "./views/about/index";
 import countdown from "./views/countdown/countdown";
 
 // en funktion för att rendera olika sidor baserat på webbläsarens "path"
