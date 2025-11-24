@@ -1,10 +1,10 @@
 import "./countdown.css";
 
 export default function countdown() {
-    const section = document.createElement("section");
-    section.classList.add("countdown-container");
+  const section = document.createElement("section");
+  section.classList.add("countdown-container");
 
-   section.innerHTML = `
+  section.innerHTML = `
      <div class="backdrop-blur-md bg-gray-900/60 p-10 rounded-4xl shadow-2xl max-w-2xl text-center">
         <h1 class="font-[Great_Vibes] text-5xl mb-4">🎅 Countdown till julafton 🎄</h1>
         <div id="timer" class="font-[Great_Vibes]">
@@ -16,30 +16,36 @@ export default function countdown() {
         </div>
     `;
 
-const daysEl = section.querySelector("#days");
-const hoursEl = section.querySelector("#hours");
-const minutesEl = section.querySelector("#minutes");
-const secondsEl = section.querySelector("#seconds");
+  const daysEl = section.querySelector("#days");
+  const hoursEl = section.querySelector("#hours");
+  const minutesEl = section.querySelector("#minutes");
+  const secondsEl = section.querySelector("#seconds");
 
-function updateCountdown(){
-const now = new Date();
-const christmas = new Date(now.getFullYear(), 11, 24);
-if (now > christmas) {
-    christmas.setFullYear(now.getFullYear() + 1);
-}
-const diff = christmas - now;
-const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-const minutes = Math.floor((diff / (1000 * 60)) % 60);
-const seconds = Math.floor((diff / 1000) % 60);
+  function updateCountdown() {
+    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+      return;
+    }
 
-daysEl.textContent = days;
-hoursEl.textContent = hours.toString().padStart(2, "0");
-minutesEl.textContent = minutes.toString().padStart(2, "0");
-secondsEl.textContent = seconds.toString().padStart(2, "0");
-}
-setInterval(updateCountdown, 1000);
-updateCountdown();
+    //CHRISTMASCOUNTDOWN.LIVE USE THE FETCH FUNCTION PLZ
+    const now = new Date();
+    const christmas = new Date(now.getFullYear(), 11, 24);
+    if (now > christmas) {
+      christmas.setFullYear(now.getFullYear() + 1);
+    }
+    const diff = christmas.getTime() - now.getTime();
+    console.log("diff", diff);
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
 
-return section;
+    daysEl.textContent = days.toString();
+    hoursEl.textContent = hours.toString().padStart(2, "0");
+    minutesEl.textContent = minutes.toString().padStart(2, "0");
+    secondsEl.textContent = seconds.toString().padStart(2, "0");
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  return section;
 }
