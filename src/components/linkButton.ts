@@ -1,4 +1,4 @@
-export default function linkButton(btnText, link) {
+export default function linkButton(btnText: string, link: string) {
     return `
 <a class="
 p-3
