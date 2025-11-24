@@ -6,7 +6,7 @@ import {
 } from '../../components/cards'
 import createPopup from '../../components/popup/popup'
 
-export default function home() {
+export default function home():HTMLElement {
     //skapar ett element med class 'home'
     const home = document.createElement('section')
     home.classList.add('home')
@@ -54,7 +54,7 @@ export default function home() {
         gridEl.appendChild(box)
     })
 
-    function renderBox(b, image) {
+    function renderBox(b: HTMLElement, image: string):void {
         b.classList.add('grid__item_opened')
         b.style.backgroundImage = `url('${image}')`
     }
