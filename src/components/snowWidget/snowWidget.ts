@@ -3,8 +3,8 @@ export default function snowWidget() {
   widget.id = "snow-widget";
 
   widget.innerHTML = `
-    <div id="snow-status" style="font-size: 22px; margin-bottom: 8px;">Checking...</div>
-    <div id="snow-sub" style="color: #555; font-size: 14px;">Getting your location...</div>
+    <div id="snow-status">Checking...</div>
+    <div id="snow-sub">Getting your location...</div>
     <div id="snow-animation" class="snowflakes" style="display: none;"></div>
   `;
 

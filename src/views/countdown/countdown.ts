@@ -1,3 +1,4 @@
+import snowWidget from "../../components/snowWidget/snowWidget";
 import "./countdown.css";
 
 type TimeleftTotalResponse = {
@@ -86,6 +87,9 @@ function blablabla() {
  window.setInterval(fetchFromApi, 60_000);
 return;
 }
-blablabla();
+  blablabla();
+  
+  section.prepend(snowWidget())
+
   return section;
 }

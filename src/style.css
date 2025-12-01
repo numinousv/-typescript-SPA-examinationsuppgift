@@ -104,11 +104,15 @@ h1 {
 }
 
 #app {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   background-image: url("/public/seoyeon-choi-UyoJIy0D-5c-unsplash.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
+  min-height: 100dvh;
   margin: 0 auto;
   text-align: center;
 }
