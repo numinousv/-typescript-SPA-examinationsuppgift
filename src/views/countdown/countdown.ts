@@ -1,6 +1,13 @@
 import "./countdown.css";
 
-export default function countdown() {
+type TimeleftTotalResponse = {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+};
+
+export default function countdown(): HTMLElement {
   const section = document.createElement("section");
   section.classList.add("countdown-container");
 
@@ -16,36 +23,67 @@ export default function countdown() {
         </div>
     `;
 
-  const daysEl = section.querySelector("#days");
-  const hoursEl = section.querySelector("#hours");
-  const minutesEl = section.querySelector("#minutes");
-  const secondsEl = section.querySelector("#seconds");
+  const daysEl = section.querySelector<HTMLSpanElement>("#days");
+  const hoursEl = section.querySelector<HTMLSpanElement>("#hours");
+  const minutesEl = section.querySelector<HTMLSpanElement>("#minutes");
+  const secondsEl = section.querySelector<HTMLSpanElement>("#seconds");
 
-  function updateCountdown() {
-    if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
-      return;
+
+    let remainingSeconds: number | null = null;
+
+    async function fetchFromApi(): Promise<void> {
+      try{
+        const res = await fetch(
+          "https://christmascountdown.live/api/timeleft/total?timezone=Europe/Stockholm"
+        );
+      if (!res.ok) {
+        console.error("Kunde inte hämta dara", res.status);
+        return;
+      }
+      const data = (await res.json()) as TimeleftTotalResponse;
+      remainingSeconds = 
+      data.days * 24 * 60 * 60 +
+      data.hours * 60 * 60 +
+      data.minutes * 60 +
+      data.seconds;
+      
+      updateDisplay(data.days, data.hours, data.minutes, data.seconds);
+      } catch (error) {
+        console.error("fel vid hämtning", error);
+      }
     }
 
-    //CHRISTMASCOUNTDOWN.LIVE USE THE FETCH FUNCTION PLZ
-    const now = new Date();
-    const christmas = new Date(now.getFullYear(), 11, 24);
-    if (now > christmas) {
-      christmas.setFullYear(now.getFullYear() + 1);
+    function updateDisplay(
+      days: number,
+      hours: number,
+      minutes: number,
+      seconds: number
+    ): void {
+      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+    
+      daysEl.textContent = days.toString();
+      hoursEl.textContent = hours.toString().padStart(2, "0");
+      minutesEl.textContent = minutes.toString().padStart(2, "0");
+      secondsEl.textContent = seconds.toString().padStart(2, "0");
     }
-    const diff = christmas.getTime() - now.getTime();
-    console.log("diff", diff);
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
 
-    daysEl.textContent = days.toString();
-    hoursEl.textContent = hours.toString().padStart(2, "0");
-    minutesEl.textContent = minutes.toString().padStart(2, "0");
-    secondsEl.textContent = seconds.toString().padStart(2, "0");
+    function tick(): void {
+      if (remainingSeconds === null || remainingSeconds <= 0) return;
+
+      remainingSeconds -= 1;
+    
+    const days = Math.floor(remainingSeconds / (24 * 60 *60));
+    const hours = Math.floor((remainingSeconds  / ( 60 * 60)) % 24);
+    const minutes = Math.floor((remainingSeconds  /  60) % 60);
+    const seconds = Math.floor(remainingSeconds  % 60);
+
+    updateDisplay(days, hours, minutes, seconds);
+  
   }
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+fetchFromApi();
+
+const tickInterval = window.setInterval(tick, 1000);
+const refreshInterval = window.setInterval(fetchFromApi, 60_000);
 
   return section;
 }

@@ -11,11 +11,11 @@
     "yo": "echo 'yo'"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.17",
     "typescript": "^5.9.3",
     "vite": "^7.2.2"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.17",
     "tailwindcss": "^4.1.17"
   }
 }
