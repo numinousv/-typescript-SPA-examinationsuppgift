@@ -37,7 +37,7 @@ export default function countdown(): HTMLElement {
           "https://christmascountdown.live/api/timeleft/total?timezone=Europe/Stockholm"
         );
       if (!res.ok) {
-        console.error("Kunde inte hämta dara", res.status);
+        console.error("Kunde inte hämta data", res.status);
         return;
       }
       const data = (await res.json()) as TimeleftTotalResponse;
@@ -49,7 +49,7 @@ export default function countdown(): HTMLElement {
       
       updateDisplay(data.days, data.hours, data.minutes, data.seconds);
       } catch (error) {
-        console.error("fel vid hämtning", error);
+        console.error("Fel vid hämtning", error);
       }
     }
 
