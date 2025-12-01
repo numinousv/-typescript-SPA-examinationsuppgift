@@ -5,6 +5,7 @@ import {
     saveOpenedCardNumber
 } from '../../components/cards'
 import createPopup from '../../components/popup/popup'
+import snowWidget from '../../components/snowWidget/snowWidget'
 
 export default function home():HTMLElement {
     //skapar ett element med class 'home'
@@ -63,4 +64,6 @@ export default function home():HTMLElement {
     home.append(gridEl)
 
     return home
+
+
 }

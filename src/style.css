@@ -1,4 +1,5 @@
 @import url(./components/popup/popup.css);
+@import url(./components/snowWidget/snowWidget.css);
 @import url(./views/home/home.css);
 @import url(./views/static/footer/footer.css);
 @import url(./views/countdown/countdown.css);
