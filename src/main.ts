@@ -32,13 +32,11 @@ const getCurrentPage = () => {
   }
 };
 
-const app = document.querySelector("#app");
-
+const app = document.querySelector("#app")!;
 // funktionen som renderar appen. kommer behöva köras om varje gång sidan ska omrenderas
 // detta är grunden i hur man gör statiska html-sidor till interaktiva applikationer
 const renderApp = () => {
   const currentPage = getCurrentPage();
-
   if (typeof currentPage === "string") {
     app.innerHTML = `
       ${header()}
@@ -67,7 +65,7 @@ renderApp();
 window.addEventListener("popstate", renderApp);
 
 //Dark Mode Toggle Button Logik
-const themeToggle = document.querySelector("#theme-toggle");
+const themeToggle = document.querySelector("#theme-toggle")!;
 themeToggle.textContent = "🌙";
 
 if (localStorage.getItem("theme") === "dark") {
