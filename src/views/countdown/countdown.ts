@@ -81,9 +81,11 @@ export default function countdown(): HTMLElement {
   
   }
 fetchFromApi();
-
-const tickInterval = window.setInterval(tick, 1000);
-const refreshInterval = window.setInterval(fetchFromApi, 60_000);
-
+function blablabla() {
+ window.setInterval(tick, 1000);
+ window.setInterval(fetchFromApi, 60_000);
+return;
+}
+blablabla();
   return section;
 }
