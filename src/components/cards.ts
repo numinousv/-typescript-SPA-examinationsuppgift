@@ -147,3 +147,7 @@ export function saveOpenedCardNumber(num: number): void {
         JSON.stringify(openedCardsNumbers)
     )
 }
+
+export function clearOpenedCardNumbers(): void {
+    localStorage.removeItem('openedCardsNumbers')
+}

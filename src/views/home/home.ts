@@ -2,19 +2,37 @@
 import {
     cards,
     openedCardsNumbers,
-    saveOpenedCardNumber
+    saveOpenedCardNumber,
+    clearOpenedCardNumbers
 } from '../../components/cards'
 import createPopup from '../../components/popup/popup'
-import snowWidget from '../../components/snowWidget/snowWidget'
 
 export default function home():HTMLElement {
     //skapar ett element med class 'home'
     const home = document.createElement('section')
     home.classList.add('home')
 
+    const clearCardsBtn = document.createElement('button')
+    clearCardsBtn.setAttribute('id', 'clear-button')
+    clearCardsBtn.innerText = `Close all boxes`
+
+    if (!openedCardsNumbers.length) {
+        clearCardsBtn.setAttribute('disabled', 'disabled')
+    }
+
+    clearCardsBtn.addEventListener('click', () => {
+        closeAllBoxes()
+        clearCardsBtn.setAttribute('disabled', 'disabled')
+        clearOpenedCardNumbers()
+    })
+
+    home.prepend(clearCardsBtn)
+
     //skapar ett nytt element med class 'grid'
     const gridEl = document.createElement('div')
     gridEl.classList.add('grid')
+
+    const boxes: HTMLElement[] = []
 
     //loopar genom cards
     cards.forEach((card) => {
@@ -49,10 +67,14 @@ export default function home():HTMLElement {
             )
             home.append(popup)
             openPopup()
+
+            clearCardsBtn.removeAttribute('disabled')   
         })
 
         //lägger in ett färdigt element i grid-elementet
         gridEl.appendChild(box)
+        boxes.push(box)
+ 
     })
 
     function renderBox(b: HTMLElement, image: string):void {
@@ -60,10 +82,16 @@ export default function home():HTMLElement {
         b.style.backgroundImage = `url('${image}')`
     }
 
+    function closeAllBoxes(): void {
+         
+        boxes.forEach(b => {
+            b.classList.remove('grid__item_opened')
+            b.style.backgroundImage = 'none' 
+        })
+    }
+
     //lägger in ett grid-element med 24 stycken children i home-elementet
     home.append(gridEl)
 
     return home
-
-
 }
