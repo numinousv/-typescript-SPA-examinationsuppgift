@@ -24,15 +24,15 @@ export default function countdown(): HTMLElement {
         </div>
         </div>
     `;
-
+//Letar efter rätt HTML-tagg där siffrorna ska skrivas
   const daysEl = section.querySelector<HTMLSpanElement>("#days");
   const hoursEl = section.querySelector<HTMLSpanElement>("#hours");
   const minutesEl = section.querySelector<HTMLSpanElement>("#minutes");
   const secondsEl = section.querySelector<HTMLSpanElement>("#seconds");
 
-
+//skapar en variabel som håller antalet sekudner kvar, dn börjar på null
     let remainingSeconds: number | null = null;
-
+//hämtar api:et
     async function fetchFromApi(): Promise<void> {
       try{
         const res = await fetch(
@@ -42,13 +42,15 @@ export default function countdown(): HTMLElement {
         console.error("Kunde inte hämta data", res.status);
         return;
       }
+      //Gör om svaret till ett objekt som sen räknar ner allt till sekunder
       const data = (await res.json()) as TimeleftTotalResponse;
       remainingSeconds = 
       data.days * 24 * 60 * 60 +
       data.hours * 60 * 60 +
       data.minutes * 60 +
       data.seconds;
-      
+
+      //uppdaterar direkt i DOM
       updateDisplay(data.days, data.hours, data.minutes, data.seconds);
       } catch (error) {
         console.error("Fel vid hämtning", error);
@@ -68,12 +70,12 @@ export default function countdown(): HTMLElement {
       minutesEl.textContent = minutes.toString().padStart(2, "0");
       secondsEl.textContent = seconds.toString().padStart(2, "0");
     }
-
+//Om tiden inte har något värde än eller slut så stoppar den
     function tick(): void {
       if (remainingSeconds === null || remainingSeconds <= 0) return;
-
+//Minskar med en 1 
       remainingSeconds -= 1;
-    
+//räknar om tillbaka till gamla värden som visas på sidan
     const days = Math.floor(remainingSeconds / (24 * 60 *60));
     const hours = Math.floor((remainingSeconds  / ( 60 * 60)) % 24);
     const minutes = Math.floor((remainingSeconds  /  60) % 60);
@@ -84,8 +86,8 @@ export default function countdown(): HTMLElement {
   }
 fetchFromApi();
 function blablabla() {
- window.setInterval(tick, 1000);
- window.setInterval(fetchFromApi, 60_000);
+ window.setInterval(tick, 1000); //körs varje sek
+ window.setInterval(fetchFromApi, 60_000);//körs varje min
 return;
 }
   blablabla();
