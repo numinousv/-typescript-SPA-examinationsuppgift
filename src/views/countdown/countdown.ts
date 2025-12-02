@@ -1,13 +1,14 @@
 import snowWidget from "../../components/snowWidget/snowWidget";
 import "./countdown.css";
 
+//Talar om för TS hur datan från API:et kommer att se ut
 type TimeleftTotalResponse = {
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
 };
-
+//Skapar ett element kallad för Countdown
 export default function countdown(): HTMLElement {
   const section = document.createElement("section");
   section.classList.add("countdown-container");
