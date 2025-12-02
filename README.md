@@ -20,6 +20,7 @@ Applikationen ska redovisas fullt fungerande i webbläsaren tillsammans med sin 
   - Mer detaljerad information om detta finns nedan.
 - **utnyttja state och omrendering vid något tillfälle**
   - Det ska finnas state-variabler, antingen direkt i tillhörande moduler eller i en globalt tillgänglig store. När en state-variabels värde uppdateras ska sidan/modulen renderas om för att demonstrera det uppdaterade värdet. Utan detta förblir sidan statisk.
+  WTF?
 - **innehålla någon form av interaktivitet**
   - Blanda statiska och dynamiska filer. Experimentera med båda koncepten och injecera JavaScript-logik där det behövs. Det är inget fel i att bygga en app helt utan statiska sidor om det visar sig vara bäst. Uppgiftens huvudfokus är JavaScript. Rå HTML är ni redan välbekanta med.
 - **hämta data från ett API**
@@ -33,7 +34,7 @@ Applikationen ska redovisas fullt fungerande i webbläsaren tillsammans med sin 
   - Fördela ansvaret för versionshantering så jämnt som möjligt. Byt person som utför git-kommandon vid varje arbetstillfälle. Det är starkt rekommenderat att jobba med branches, pull requests och code reviews för att få övning i det. Läs mer om riktlinjerna kring grupparbete i Canvas vid oklarheter.
 - **En del av applikationen (Förslagsvis en view, page eller ett flertal components) ska byggas eller refaktoreras av AI**
   - Tillvägagångssättet och era reflektioner kring detta ska redovisas tillsammans med applikationen.
-
+  WTF?
 ## 🦮 Riktlinjer
 
 Ett tips är att hålla projektet relativt småskaligt och sedan bygga vidare i mån av tid. Ni har fria händer när det kommer till _vad_ som ska byggas, så länge det följer riktlinjerna nedan:

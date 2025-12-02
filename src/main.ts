@@ -1,11 +1,5 @@
 // global css
 import "./style.css";
-// övrig css
-
-//denna css import behövs inte, css filen kommer tas bort senare används tailwind istället.
-// import "./views/static/header/header.css";
-
-// statiska sidor
 // måste referera till den specifika .html-filen pga "?raw"-suffixet
 import header from "./views/header/header";
 import home from "./views/home/home";
@@ -65,9 +59,11 @@ renderApp();
 window.addEventListener("popstate", renderApp);
 
 //Dark Mode Toggle Button Logik
+//Hämtar HTML-elementet
 const themeToggle = document.querySelector("#theme-toggle")!;
 themeToggle.textContent = "🌙";
 
+// om webbläsaren lagrat som dark lägge i lkl strg 
 if (localStorage.getItem("theme") === "dark") {
   document.documentElement.classList.add("dark");
   themeToggle.classList.add("dark-mode");
@@ -77,11 +73,13 @@ if (localStorage.getItem("theme") === "dark") {
 themeToggle.addEventListener("click", () => {
   themeToggle.classList.toggle("dark-mode");
 
+  //om knappen är i mörk lägge
   themeToggle.textContent = themeToggle.classList.contains("dark-mode")
     ? "☀️"
     : "🌙";
   document.documentElement.classList.toggle("dark");
 
+  // vilket läge som gäller just nu och sparar den i lclstrg.
   const theme = document.documentElement.classList.contains("dark")
     ? "dark"
     : "light";

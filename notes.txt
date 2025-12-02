@@ -1,0 +1,23 @@
+Main:
+- main.ts och style.css grunden av sidan, reflektioner and other dogshit:
+import, simple dom pathing och statisk function för att rendera olika sidor (getCurrentPage)
+- renderapp under getCurrentPage är dynamisk rendering och använder templete string embedding för att dynamisk rendera sidorna
+popstate lyssnar på ändringar i urlens historik
+- dark mode funktionen kallar på dom element från styles.css t.ex queryselector("theme-toggle); som är en css klass.
+localstorage gör den dynamisk
+
+Home:
+- har en sektion med klassen Home 
+- Kalendern hämtar luckorna från cards.ts lista på alla 24 dagar, som har både bild och text. för varje kort skapas en knapp i ett gridd
+- när man klickar på en lucka så sparas det i ett state via openedCardsNumbers som då ändrar luckans utseende genom renderBox som då skapar en popup 
+- sidan är dynamsik som sparar ett state genom openedCardsNumbers via saveOpenedCardNumber functionen som sparar det lokalt
+
+Cards:
+- Innehåller en lista på cards som har object: ett nummer, en bild url och en text. 
+- Har en function "saveOpenedCardNumber" som sparas i localstorage. 
+- samtidigt en annan function som nollställer localstorage "clearOpenedCardNumbers2
+
+Popup:
+- skapar ett popupp fönster
+- Har en div med klassen popup
+- Innehåller annimationer kallade openPopup och closepopup
